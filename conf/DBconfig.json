@@ -1,0 +1,6 @@
+{   
+    "dbaddr": "127.0.0.1",
+    "dbname": "ServerDB",
+    "user": "postgres",
+    "password": "1234"
+}
