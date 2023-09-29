@@ -1,7 +1,5 @@
 import psycopg2
 
-import utils
-
 class PostgreSQLDatabase:
     def __init__(self, host, database, user, password):
         self.host = host

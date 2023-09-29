@@ -2,12 +2,17 @@ import DB
 import utils
 import openpyxl
 
+
+
 if __name__ == "__main__":
-    data = utils.read_json_from_file("/home/vanchu/Weather/conf/config.json")
+    
+    
+    data = utils.read_json_from_file("/home/vanchu/Weather/conf/DBconfig.json")
     db_host = data["db"]["dbaddr"]
     db_name = data["db"]["dbname"]
     db_user = data["db"]["user"]
     db_password = data["db"]["password"]
+    
     
     db = DB.PostgreSQLDatabase(db_host, db_name, db_user, db_password)
         
@@ -24,11 +29,11 @@ if __name__ == "__main__":
     for row_number, row in enumerate(sheet.iter_rows(values_only=True), start=1):
         if row_number >= start_row and (row_number - start_row) % step == 0:
             
-            data = row[16]
+            data = row[0]
             if (data != None):
                 data = data.split(' ')[0]
 
-                weather_power = row[28]
+                weather_power = row[12]
 
                 if (weather_power):                    
                     query = utils.conc("SELECT weather.update_or_insert_data('",
