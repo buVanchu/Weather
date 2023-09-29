@@ -1,11 +1,11 @@
 {   
 	"db": {
 	    "dbaddr": "127.0.0.1",
-	    "dbname": "ServerDB",
+	    "dbname": "postgres",
 	    "user": "postgres",
-	    "password": "1234"
+	    "password": "12345"
 	},
 	"predict": {
-        "file": "/home/vanchu/Weather/tables/op.xlsx"
+        "file": "/home/server/priority2030_servers/Weather/tables/op_dev.xlsx"
 	}
 }

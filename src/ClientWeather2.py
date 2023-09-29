@@ -7,7 +7,7 @@ import openpyxl
 if __name__ == "__main__":
     
     
-    data = utils.read_json_from_file("/home/vanchu/Weather/conf/config.json")
+    data = utils.read_json_from_file("/home/server/priority2030_servers/Weather/conf/config.json")
     db_host = data["db"]["dbaddr"]
     db_name = data["db"]["dbname"]
     db_user = data["db"]["user"]
