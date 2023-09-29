@@ -21,3 +21,5 @@ BEGIN
     END IF;
 END;
 $BODY$;
+
+alter table public.predicted_power add primary key (id);
