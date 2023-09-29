@@ -31,11 +31,11 @@ if __name__ == "__main__":
                 weather_power = row[28]
 
                 if (weather_power):                    
-                    query = utils.conc("SELECT weather.update_or_insert_data('",
+                    query = utils.conc("SELECT update_or_insert_data('",
                     data,
                     "'::date, ",
                     weather_power,
-                    "::real",
+                    "::double precision",
                     ");")
                     
                     db.execute_query(query)

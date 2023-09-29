@@ -1,50 +1,23 @@
--- SCHEMA: weather
+-- FUNCTION: public.update_or_insert_data(date, double precision)
 
--- DROP SCHEMA IF EXISTS weather ;
+-- DROP FUNCTION IF EXISTS public.update_or_insert_data(date, double precision);
 
-CREATE SCHEMA IF NOT EXISTS weather
-    AUTHORIZATION postgres;
-
--- Table: weather.power_prediction
-
--- DROP TABLE IF EXISTS weather.power_prediction;
-
-CREATE TABLE IF NOT EXISTS weather.power_prediction
-(
-    id bigint NOT NULL DEFAULT nextval('weather.power_prediction_id_seq'::regclass),
-    power real,
-    data date,
-    CONSTRAINT power_prediction_pkey PRIMARY KEY (id)
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS weather.power_prediction
-    OWNER to postgres;
-
--- FUNCTION: weather.update_or_insert_data(date, real)
-
--- DROP FUNCTION IF EXISTS weather.update_or_insert_data(date, real);
-
-CREATE OR REPLACE FUNCTION weather.update_or_insert_data(
-  date_param date,
-  power_param real)
+CREATE OR REPLACE FUNCTION public.update_or_insert_data(
+	date_param date,
+	power_param double precision)
     RETURNS void
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE PARALLEL UNSAFE
 AS $BODY$
 BEGIN
-    IF EXISTS (SELECT 1 FROM weather.power_prediction WHERE data = date_param) THEN
-        UPDATE weather.power_prediction
-        SET power = power_param
-        WHERE data = date_param;
+    IF EXISTS (SELECT 1 FROM predicted_power WHERE date_stamp = date_param) THEN
+        UPDATE predicted_power
+        SET generated_power = power_param
+        WHERE date_stamp = date_param;
     ELSE
-        INSERT INTO weather.power_prediction (data, power)
-        VALUES (date_param, power_param);
+        INSERT INTO predicted_power (date_stamp, generated_power, user_id)
+        VALUES (date_param, power_param, 1);
     END IF;
 END;
 $BODY$;
-
-ALTER FUNCTION weather.update_or_insert_data(date, real)
-    OWNER TO postgres;
