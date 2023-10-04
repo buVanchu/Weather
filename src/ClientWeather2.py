@@ -44,10 +44,25 @@ if __name__ == "__main__":
                     ");")
                     
                     db.execute_query(query)
-            
-            else:
-                a = 1
-                        
+
+    for row_number, row in enumerate(sheet.iter_rows(values_only=True), start=1):
+        if row_number >= 7:
+            data = row[38]
+            if (data != None):
+                weather_power = row[60]
+
+                if (weather_power):
+                    query = utils.conc("SELECT update_or_insert_data_cons('",
+                    data.strftime("%Y-%m-%d"),
+                    "'::date, ",
+                    weather_power,
+                    "::double precision",
+                    ");")
+                    
+                    db.execute_query(query)
+
+        
+        
     wb.close()
         
     
