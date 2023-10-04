@@ -3,7 +3,7 @@ import utils
 import openpyxl
 
 if __name__ == "__main__":
-    data = utils.read_json_from_file("/home/vanchu/Weather/conf/config.json")
+    data = utils.read_json_from_file("/home/server/priority2030_servers/Weather/conf/config.json")
     db_host = data["db"]["dbaddr"]
     db_name = data["db"]["dbname"]
     db_user = data["db"]["user"]
@@ -20,7 +20,7 @@ if __name__ == "__main__":
     start_row = 8
 
     step = 8
-
+    power_pre
     for row_number, row in enumerate(sheet.iter_rows(values_only=True), start=1):
         if row_number >= start_row and (row_number - start_row) % step == 0:
             
